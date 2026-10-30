@@ -65,22 +65,20 @@ Open http://localhost:8501. The first click downloads the model (~1.6 GB) once.
 
 Take two screenshots: **(1)** the normal input below, **(2)** one edge case.
 
-### Test table
+### Test table (actual results from the deployed app)
 
-Fill the *Actual result* column from your own run.
-
-| # | Type | Input text | Labels | Expected behaviour | Actual result | Pass? |
+| # | Type | Input text | Labels | Actual result | Pass? | Screenshot |
 |---|---|---|---|---|---|---|
-| 1 | Normal | "The new phone has an amazing camera but the battery dies before lunch." | technology / sports / politics | Top label **technology** with high score | | |
-| 2 | Normal | "Messi scored twice as Inter Miami won the final." | sports / finance / cooking | Top label **sports** | | |
-| 3 | Edge – empty | *(empty / only spaces)* | any | Warning "Please enter some text to classify.", model not called | | |
-| 4 | Edge – missing label | any text | technology / *(empty)* / politics | Warning "Please fill in all 3 candidate labels." | | |
-| 5 | Edge – duplicate labels | any text | Sports / sports / music | Warning "The 3 labels must be different from each other." | | |
-| 6 | Edge – very long text | a ~6,000-character paste | any 3 | Info note that only ~the first 3,000 characters are read; still returns a result | | |
-| 7 | Edge – tricky (none fits) | "I had pasta for dinner." | technology / sports / politics | Still picks one label, but shows the **low-confidence** warning | | |
-| 8 | Edge – tricky (sarcasm) | "Oh great, another Monday. I just *love* traffic." | happy / angry / neutral | Model may wrongly pick *happy* – shows a real limitation | | |
+| 1 | Normal | "The new phone has an amazing camera but the battery dies before lunch." | technology / sports / politics | technology 96.6 % | Pass | `docs/screenshots/test1_normal.png` |
+| 2 | Edge – no label fits | "I had pasta with garlic bread for dinner tonight." | technology / sports / politics | technology 40.1 % + low-confidence warning | Pass (warning works) | `docs/screenshots/test2_no_label_fits.png` |
+| 3 | Edge – sarcasm | "Oh great, another Monday. I just love sitting in traffic for two hours." | happy / angry / neutral | neutral 56.2 %, angry 33.1 %, happy 10.7 % | Partial – real meaning is angry | `docs/screenshots/test3_sarcasm.png` |
+| 4 | Edge – duplicate labels | same as 3 | Sports / sports / music | Warning "The 3 labels must be different from each other." | Pass | `docs/screenshots/test4_duplicate_labels.png` |
 
 ## Task 2.4 – Deployment (Streamlit Community Cloud → embedded in a Hugging Face Space)
+
+- Live app: https://mid-exam-muhammad-fawwad-ahmed.streamlit.app/
+- Hugging Face Space: https://huggingface.co/spaces/fawwaduuu/mid-exam-gen-ai
+- Full report: `Mid_Exam_Muhammad_Fawwad_Ahmed_B04-0923-000043ma.docx`
 
 **A. Deploy the app on Streamlit Community Cloud (free)**
 
